@@ -85,6 +85,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "ivangrigorov/vmvalidator": {
+        "version": "1.0.8"
+    },
     "laminas/laminas-code": {
         "version": "4.4.0"
     },

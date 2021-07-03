@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Infrastructure\ResponseMessages;
 use App\Models\RequestModels\PromotionRequestModel;
 use App\Services\Promotion\PromotionService;
+use Exception;
+use RMValidator\Options\OptionsModel;
+use RMValidator\Validators\MasterValidator;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,13 +19,23 @@ class PromotionController extends AbstractController
     public function create(Request $request, PromotionService $promotionService): Response
     {
 
-        $newPromotionId = $promotionService->create(new PromotionRequestModel(
-                $request->request->get('productId'),
-                $request->request->get('amount'),
-                $request->request->get('price')
-        ));
+        $promotionModel = new PromotionRequestModel(
+            $request->request->get('productId'),
+            $request->request->get('amount'),
+            $request->request->get('price')
+        );
+        try {
+            MasterValidator::validate($promotionModel, new OptionsModel()); 
+        }
+        catch(Exception $e) {
+            return $this->json([
+                'message' => $e->getMessage()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $newPromotionId = $promotionService->create($promotionModel);
         return $this->json([
-            'message' => 'New Promotion created!',
+            'message' => ResponseMessages::NEW_PROMOTION,
             'id' => $newPromotionId,
         ], Response::HTTP_CREATED);
     }
@@ -30,23 +44,40 @@ class PromotionController extends AbstractController
     public function update(Request $request, PromotionService $promotionService): Response
     {
 
-        $promotionService->update(new PromotionRequestModel(
+        $promotionModel = new PromotionRequestModel(
             $request->request->get('productId'),
             $request->request->get('amount'),
             $request->request->get('price'),
             $request->request->get('id')
-        ));
+        );
+        try {
+            MasterValidator::validate($promotionModel, new OptionsModel()); 
+        }
+        catch(Exception $e) {
+            return $this->json([
+                'message' => $e->getMessage()
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $promotionService->update($promotionModel);
         return $this->json([
-            'message' => 'Promotion Updated!'
+            'message' => ResponseMessages::UPDATE_PROMOTION
         ], Response::HTTP_OK);
     }
 
     #[Route('/promotion/delete/{id}', name: 'delete_promotion', methods:["DELETE"])]
     public function delete(int $id, PromotionService $promotionService): Response
     {
-        $promotionService->delete($id);
+        try {
+            $promotionService->delete($id);
+        }
+        catch(Exception $e) {
+            return $this->json([
+                'message' => ResponseMessages::DELETE_PROBLEM
+            ], RESPONSE::HTTP_BAD_REQUEST);
+        }
         return $this->json([
-            'message' => 'New Promotion deleted!',
+            'message' => ResponseMessages::DELETE_PROMOTION
         ], RESPONSE::HTTP_CREATED);
     }
 }

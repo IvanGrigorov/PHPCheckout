@@ -2,6 +2,8 @@
 
 namespace App\Models\RequestModels;
 
+use RMValidator\Attributes\PropertyAttributes\Numbers\BiggerAttribute;
+
 final class PromotionRequestModel {
 
     public function __construct(
@@ -22,10 +24,12 @@ final class PromotionRequestModel {
         return $this->id;
     }
 
+    #[BiggerAttribute(biggerThan: 0)]
     public function getPrice() : string {
         return $this->price;
     }
 
+    #[BiggerAttribute(biggerThan: 10)]
     public function getAmount() : string {
         return $this->amount;
     }

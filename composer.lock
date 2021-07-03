@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "38a0666fdb1b805270d22c281da5c54f",
+    "content-hash": "261bb7d0484f1d76434e25ac041c48f8",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -1515,6 +1515,59 @@
                 }
             ],
             "time": "2021-05-22T16:11:15+00:00"
+        },
+        {
+            "name": "ivangrigorov/vmvalidator",
+            "version": "1.0.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IvanGrigorov/VMValidator.git",
+                "reference": "947d6cfc14adf7c86df7027e5ea901e315bf3060"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/IvanGrigorov/VMValidator/zipball/947d6cfc14adf7c86df7027e5ea901e315bf3060",
+                "reference": "947d6cfc14adf7c86df7027e5ea901e315bf3060",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "codeception/codeception": "^4.1",
+                "codeception/module-asserts": "^1.0.0",
+                "codeception/module-phpbrowser": "^1.0.0",
+                "phpunit/phpunit": "9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "RMValidator\\": "./RMValidator"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Grigorov",
+                    "email": "ivangrigorov9@gmail.com",
+                    "role": "Developer and maintainer"
+                }
+            ],
+            "description": "Simple Request Model Validation",
+            "homepage": "https://github.com/IvanGrigorov/VMValidator",
+            "keywords": [
+                "Request Models",
+                "attributes",
+                "validation"
+            ],
+            "support": {
+                "issues": "https://github.com/IvanGrigorov/VMValidator/issues",
+                "source": "https://github.com/IvanGrigorov/VMValidator/tree/1.0.8"
+            },
+            "time": "2021-06-30T20:03:33+00:00"
         },
         {
             "name": "laminas/laminas-code",
